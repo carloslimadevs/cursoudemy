@@ -2,12 +2,22 @@ package com.carloslima.udemyweb.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
+@Entity
 public class Category implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "CategorySeq" )
+	@SequenceGenerator(allocationSize = 1, initialValue = 1,name = "CategorySeq", sequenceName = "CategorySeq")
 	private Integer id;
 	private String description;
 	private String name;

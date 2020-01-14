@@ -7,12 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.carloslima.udemyweb.domain.Address;
 import com.carloslima.udemyweb.domain.Category;
 import com.carloslima.udemyweb.domain.City;
+import com.carloslima.udemyweb.domain.Customer;
 import com.carloslima.udemyweb.domain.Product;
 import com.carloslima.udemyweb.domain.Province;
+import com.carloslima.udemyweb.domain.enums.CustomerType;
+import com.carloslima.udemyweb.repositories.AddressRepository;
 import com.carloslima.udemyweb.repositories.CategoryRepository;
 import com.carloslima.udemyweb.repositories.CityRepository;
+import com.carloslima.udemyweb.repositories.CustomerRepository;
 import com.carloslima.udemyweb.repositories.ProductRepository;
 import com.carloslima.udemyweb.repositories.ProvinceRepository;
 
@@ -27,6 +32,11 @@ public class UdemywebApplication implements CommandLineRunner{
 	private ProvinceRepository provinceRepository;
 	@Autowired
 	private CityRepository cityRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private AddressRepository addressRepository;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(UdemywebApplication.class, args);
@@ -69,6 +79,23 @@ public class UdemywebApplication implements CommandLineRunner{
 		provinceRepository.saveAll(Arrays.asList(provinceOne,provinceTwo));
 		cityRepository.saveAll(Arrays.asList(cityOne,cityTwo,cityThree,cityFour,cityFive));
 		
+		
+		Customer customerOne = new Customer(null, "customer_one", "customerOne@mail.com", "01010101010", CustomerType.COMMONCOSTUMER);
+		Customer customerTwo = new Customer(null, "customer_Two", "customerTwo@mail.com", "10101010101", CustomerType.LEGALCOSTUMER);
+		
+		customerOne.getContacts().addAll(Arrays.asList("123456","212221212"));
+		
+		Address addressOne = new Address(null, "Street customer One", "1", "apt 202", "4250281", customerOne, cityOne);
+		Address addressTwo = new Address(null, "Street customer One", "12", "apt 2021", "4250281", customerOne, cityOne);
+		Address addressThree = new Address(null, "Street customer Two", "3", "apt 2022", "4250281", customerTwo, cityTwo);
+		Address addressFour= new Address(null, "Street customer Two", "12", "apt 2021", "4250281", customerTwo, cityTwo);
+		
+		customerOne.getAddresses().addAll(Arrays.asList(addressOne,addressTwo));
+		customerTwo.getAddresses().addAll(Arrays.asList(addressThree,addressFour));
+		
+		customerRepository.saveAll(Arrays.asList(customerOne,customerTwo));
+		addressRepository.saveAll(Arrays.asList(addressOne,addressTwo,addressThree,addressFour));
+
 	}
 
 }

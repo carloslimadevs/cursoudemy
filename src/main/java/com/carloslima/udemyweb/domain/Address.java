@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Address implements Serializable{
 	
@@ -26,6 +28,7 @@ public class Address implements Serializable{
 	private String optionalInformation;
 	private String zipcode;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
@@ -135,8 +138,8 @@ public class Address implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", street=" + street + ", number=" + number + ", optionalInformation="
-				+ optionalInformation + ", zipcode=" + zipcode + ", customer=" + customer + ", city=" + city + "]";
+		return "Address [id=" + id + "]";//", street=" + street + ", number=" + number + ", optionalInformation="
+				//+ optionalInformation + ", zipcode=" + zipcode + ", customer=" + customer + ", city=" + city + "]";
 	}
 	
 	

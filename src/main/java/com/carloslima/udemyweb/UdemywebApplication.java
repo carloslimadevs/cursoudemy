@@ -27,7 +27,7 @@ public class UdemywebApplication implements CommandLineRunner{
 	@Autowired
 	private CategoryRepository categoryRepository;
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductRepository productRepository ;
 	@Autowired
 	private ProvinceRepository provinceRepository;
 	@Autowired

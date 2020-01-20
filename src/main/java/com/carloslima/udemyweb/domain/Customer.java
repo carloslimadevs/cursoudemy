@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -42,6 +43,9 @@ public class Customer implements Serializable {
 	@CollectionTable(name = "CONTACTS")
 	private Set<String> contacts = new HashSet<String>();
 
+	@OneToMany(mappedBy = "customer")
+	private List<Ordered> ordereds = new ArrayList<Ordered>();
+	
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -110,6 +114,14 @@ public class Customer implements Serializable {
 
 	public void setContacts(Set<String> contacts) {
 		this.contacts = contacts;
+	}
+
+	public List<Ordered> getOrdereds() {
+		return ordereds;
+	}
+
+	public void setOrdereds(List<Ordered> ordereds) {
+		this.ordereds = ordereds;
 	}
 
 	@Override

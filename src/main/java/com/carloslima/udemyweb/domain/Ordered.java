@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Ordered implements Serializable {
 	
@@ -26,8 +29,12 @@ public class Ordered implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date orderemTime;
 	
+	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "ordered")
 	private Payment payment;
 	
@@ -36,6 +43,7 @@ public class Ordered implements Serializable {
 	@JoinColumn(name = "adress_id")
 	private Address address;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;

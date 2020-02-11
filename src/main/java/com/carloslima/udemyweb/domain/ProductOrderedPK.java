@@ -6,6 +6,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Embeddable
 public class ProductOrderedPK implements Serializable{
@@ -14,7 +16,7 @@ public class ProductOrderedPK implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ordered_id")
 	private  Ordered ordered;
@@ -31,9 +33,11 @@ public class ProductOrderedPK implements Serializable{
 	public void setOrdered(Ordered ordered) {
 		this.ordered = ordered;
 	}
+	
 	public Product getProduct() {
 		return product;
 	}
+	
 	public void setProduct(Product product) {
 		this.product = product;
 	}

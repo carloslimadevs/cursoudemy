@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.carloslima.udemyweb.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class PaymentBillet extends Payment{
@@ -13,7 +14,11 @@ public class PaymentBillet extends Payment{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date limitDateOfPayment;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dateOfPayment;
 	
 	public PaymentBillet() {

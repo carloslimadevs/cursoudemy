@@ -18,6 +18,7 @@ import com.carloslima.udemyweb.domain.Payment;
 import com.carloslima.udemyweb.domain.PaymentBillet;
 import com.carloslima.udemyweb.domain.PaymentCard;
 import com.carloslima.udemyweb.domain.Product;
+import com.carloslima.udemyweb.domain.ProductOrdered;
 import com.carloslima.udemyweb.domain.Province;
 import com.carloslima.udemyweb.domain.enums.CustomerType;
 import com.carloslima.udemyweb.domain.enums.PaymentStatus;
@@ -27,6 +28,7 @@ import com.carloslima.udemyweb.repositories.CityRepository;
 import com.carloslima.udemyweb.repositories.CustomerRepository;
 import com.carloslima.udemyweb.repositories.OrderedRepository;
 import com.carloslima.udemyweb.repositories.PaymentRepository;
+import com.carloslima.udemyweb.repositories.ProductOrderedRepository;
 import com.carloslima.udemyweb.repositories.ProductRepository;
 import com.carloslima.udemyweb.repositories.ProvinceRepository;
 
@@ -49,6 +51,9 @@ public class UdemywebApplication implements CommandLineRunner{
 	private PaymentRepository paymentRepository;
 	@Autowired
 	private OrderedRepository orderedRepository;
+	@Autowired
+	private ProductOrderedRepository productOrderedRepository;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(UdemywebApplication.class, args);
@@ -133,6 +138,20 @@ public class UdemywebApplication implements CommandLineRunner{
 		orderedRepository.saveAll(Arrays.asList(order1,order2,order3,order4));
 		paymentRepository.saveAll(Arrays.asList(paymentBillet,paymentCard));
 		
+		ProductOrdered pd1 = new ProductOrdered(productOne, order1, 0.00, 1, 2000.00);
+		ProductOrdered pd2 = new ProductOrdered(productThree, order1, 0.00, 1, 80.00);
+		ProductOrdered pd3 = new ProductOrdered(productTwo, order2, 100.00, 1, 800.00);
+		
+		order1.getProducts().addAll(Arrays.asList(pd1,pd2));
+		order2.getProducts().addAll(Arrays.asList(pd3));
+		
+		productOne.getProducts().addAll(Arrays.asList(pd1));
+		productTwo.getProducts().addAll(Arrays.asList(pd3));
+		productThree.getProducts().addAll(Arrays.asList(pd2));
+ 
+		productOrderedRepository.saveAll(Arrays.asList(pd1,pd2,pd3));
+		
+
 		}
 	}
 }

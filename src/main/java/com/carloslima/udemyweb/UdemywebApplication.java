@@ -1,23 +1,32 @@
 package com.carloslima.udemyweb;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cglib.transform.impl.AddStaticInitTransformer;
 
 import com.carloslima.udemyweb.domain.Address;
 import com.carloslima.udemyweb.domain.Category;
 import com.carloslima.udemyweb.domain.City;
 import com.carloslima.udemyweb.domain.Customer;
+import com.carloslima.udemyweb.domain.Ordered;
+import com.carloslima.udemyweb.domain.Payment;
+import com.carloslima.udemyweb.domain.PaymentBillet;
+import com.carloslima.udemyweb.domain.PaymentCard;
 import com.carloslima.udemyweb.domain.Product;
 import com.carloslima.udemyweb.domain.Province;
 import com.carloslima.udemyweb.domain.enums.CustomerType;
+import com.carloslima.udemyweb.domain.enums.PaymentStatus;
 import com.carloslima.udemyweb.repositories.AddressRepository;
 import com.carloslima.udemyweb.repositories.CategoryRepository;
 import com.carloslima.udemyweb.repositories.CityRepository;
 import com.carloslima.udemyweb.repositories.CustomerRepository;
+import com.carloslima.udemyweb.repositories.OrderedRepository;
+import com.carloslima.udemyweb.repositories.PaymentRepository;
 import com.carloslima.udemyweb.repositories.ProductRepository;
 import com.carloslima.udemyweb.repositories.ProvinceRepository;
 
@@ -36,7 +45,10 @@ public class UdemywebApplication implements CommandLineRunner{
 	private CustomerRepository customerRepository;
 	@Autowired
 	private AddressRepository addressRepository;
-	
+	@Autowired
+	private PaymentRepository paymentRepository;
+	@Autowired
+	private OrderedRepository orderedRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(UdemywebApplication.class, args);
@@ -45,9 +57,9 @@ public class UdemywebApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		int i = 0;
+		int x = 1;
 		
-		for( i = 0; i < 0; i++) {
+		for(int i = 0; i < x; i++) {
 			
 		
 				
@@ -101,7 +113,26 @@ public class UdemywebApplication implements CommandLineRunner{
 		
 		customerRepository.saveAll(Arrays.asList(customerOne,customerTwo));
 		addressRepository.saveAll(Arrays.asList(addressOne,addressTwo,addressThree,addressFour));
-
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Ordered order1 = new Ordered(null,sdf.parse("30/09/2017 10:32"),addressTwo, customerOne);
+		Ordered order2 = new Ordered(null,sdf.parse("30/08/2017 10:32"),addressOne, customerOne);
+		Ordered order3 = new Ordered(null,sdf.parse("30/10/2017 10:32"),addressThree, customerTwo);
+		Ordered order4 = new Ordered(null,sdf.parse("30/09/2017 10:32"),addressFour, customerTwo);
+		
+		Payment paymentCard = new PaymentCard(null, PaymentStatus.PAYED, order1,6);
+		order1.setPayment(paymentCard);
+		
+		Payment paymentBillet = new PaymentBillet(null, PaymentStatus.INPROCESS, order2, sdf.parse("30/09/2017 10:32"),null);
+		order2.setPayment(paymentBillet);
+		
+		customerOne.getOrdereds().addAll(Arrays.asList(order1,order3));
+		customerTwo.getOrdereds().addAll(Arrays.asList(order2,order4));
+		
+		orderedRepository.saveAll(Arrays.asList(order1,order2,order3,order4));
+		paymentRepository.saveAll(Arrays.asList(paymentBillet,paymentCard));
+		
 		}
 	}
 }

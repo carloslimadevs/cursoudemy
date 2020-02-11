@@ -42,12 +42,12 @@ public class Ordered implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Ordered(Integer id, Date orderemTime, Payment payment, Address address) {
+	public Ordered(Integer id, Date orderemTime,  Address address, Customer customer) {
 		super();
 		this.id = id;
 		this.orderemTime = orderemTime;
-		this.payment = payment;
 		this.address = address;
+		this.customer = customer;
 	}
 
 	public Integer getId() {

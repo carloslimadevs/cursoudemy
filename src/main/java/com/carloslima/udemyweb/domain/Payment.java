@@ -14,7 +14,7 @@ import com.carloslima.udemyweb.domain.enums.PaymentStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Payment implements Serializable {
+public abstract class Payment implements Serializable {
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class Payment implements Serializable {
 	
 	@Id
 	private Integer id;
-	private PaymentStatus status;
+	private Integer status;
 	
 	@OneToOne
 	@JoinColumn(name = "ordered_id")
@@ -38,7 +38,7 @@ public class Payment implements Serializable {
 	public Payment(Integer id, PaymentStatus status, Ordered ordered) {
 		super();
 		this.id = id;
-		this.status = status;
+		this.status = status.getIdentifier();
 		this.ordered = ordered;
 	}
 
@@ -51,11 +51,11 @@ public class Payment implements Serializable {
 	}
 
 	public PaymentStatus getStatus() {
-		return status;
+		return PaymentStatus.toEnum(status);
 	}
 
 	public void setStatus(PaymentStatus status) {
-		this.status = status;
+		this.status = status.getIdentifier();
 	}
 
 	public Ordered getOrdered() {

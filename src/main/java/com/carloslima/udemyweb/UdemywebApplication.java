@@ -45,6 +45,12 @@ public class UdemywebApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		int i = 0;
+		
+		for( i = 0; i < 0; i++) {
+			
+		
+				
 		Category categoryOne = new Category(null, "office description", "Office");
 		Category categoryTwo = new Category(null,"Tecnology description", "Tecnology");
 		
@@ -96,6 +102,6 @@ public class UdemywebApplication implements CommandLineRunner{
 		customerRepository.saveAll(Arrays.asList(customerOne,customerTwo));
 		addressRepository.saveAll(Arrays.asList(addressOne,addressTwo,addressThree,addressFour));
 
+		}
 	}
-
 }

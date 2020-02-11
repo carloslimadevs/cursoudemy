@@ -29,8 +29,9 @@ public class CategoryResource {
 		List<Category> categories = new ArrayList<>();
 		categories.add(cat1);
 		categories.add(cat2);
-		Category categoryObj = categoryService.find(0);
-		categories.add(categoryObj);
+		//Category categoryObj = categoryService.;
+		//categories.add(categoryObj);
+		categories = categoryService.findAll();
 		return categories; // return "list categories rest service is work";
 	}
 

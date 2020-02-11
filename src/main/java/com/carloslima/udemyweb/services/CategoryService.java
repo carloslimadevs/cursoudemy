@@ -1,5 +1,6 @@
 package com.carloslima.udemyweb.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +25,14 @@ public class CategoryService {
 						
 	}
 
+	public List<Category> findAll() {
+		List<Category>categories = categoryRepository.findAll();
+		//Optional<Category> categoryObj = categoryRepository.findAll()();
+		//System.out.println(categoryObj);
+		// categoryObj.orElse(null);
+		return categories;
+//		return categories.orElseThrow(() -> new ObjectNotFoundException(
+//				"Object Not found! Id: " + id + ", Type: " + Category.class.getName()));
+//						
+	}
 }

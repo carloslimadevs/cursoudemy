@@ -10,13 +10,13 @@ public class StandardError implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer status;
 	private String message;
-	private Long timeStamp;
+	private String timeStamp;
 	
-	public StandardError(Integer status, String message, Long timeStamp) {
+	public StandardError(Integer status, String message, String string) {
 		super();
 		this.status = status;
 		this.message = message;
-		this.timeStamp = timeStamp;
+		this.timeStamp = string;
 	}
 
 	public Integer getStatus() {
@@ -35,11 +35,11 @@ public class StandardError implements Serializable {
 		this.message = message;
 	}
 	
-	public Long getTimeStamp() {
+	public String getTimeStamp() {
 		return timeStamp;
 	}
 	
-	public void setTimeStamp(Long timeStamp) {
+	public void setTimeStamp(String timeStamp) {
 		this.timeStamp = timeStamp;
 	}
 	

@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.carloslima.udemyweb.domain.Category;
 import com.carloslima.udemyweb.repositories.CategoryRepository;
+import com.carloslima.udemyweb.services.exception.DataIntegrityException;
 import com.carloslima.udemyweb.services.exception.ObjectNotFoundException;
 
 @Service
@@ -47,6 +49,15 @@ public class CategoryService {
 		// TODO Auto-generated method stub
 		find(obj.getId());
 		return categoryRepository.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			categoryRepository.deleteById(id);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel excluir categorias com produtos associados");
+		}
 	}
 	
 }

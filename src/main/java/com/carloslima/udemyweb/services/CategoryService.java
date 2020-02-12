@@ -37,8 +37,16 @@ public class CategoryService {
 	}
 
 	public Category insert(Category obj) {
+		obj.setId(null);
 		// TODO Auto-generated method stub
 		return categoryRepository.save(obj);
 		
 	}
+
+	public Category update(Category obj) {
+		// TODO Auto-generated method stub
+		find(obj.getId());
+		return categoryRepository.save(obj);
+	}
+	
 }

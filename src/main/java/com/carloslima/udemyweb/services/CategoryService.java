@@ -35,4 +35,10 @@ public class CategoryService {
 //				"Object Not found! Id: " + id + ", Type: " + Category.class.getName()));
 //						
 	}
+
+	public Category insert(Category obj) {
+		// TODO Auto-generated method stub
+		return categoryRepository.save(obj);
+		
+	}
 }

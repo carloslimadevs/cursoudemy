@@ -3,6 +3,7 @@ package com.carloslima.udemyweb.resources;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.carloslima.udemyweb.domain.Category;
+import com.carloslima.udemyweb.dto.CategoryDTO;
 import com.carloslima.udemyweb.services.CategoryService;
 
 @RestController
@@ -24,18 +26,15 @@ public class CategoryResource {
 	private CategoryService categoryService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Category> list() {
+	public ResponseEntity<List<CategoryDTO>> list() {
 
-		Category cat1 = new Category(1, null, "tecnology");
-		Category cat2 = new Category(2, null, "tecnology");
-
-		List<Category> categories = new ArrayList<>();
-		categories.add(cat1);
-		categories.add(cat2);
-		//Category categoryObj = categoryService.;
-		//categories.add(categoryObj);
-		categories = categoryService.findAll();
-		return categories; // return "list categories rest service is work";
+		List<Category> categories  = categoryService.findAll();
+		
+		List<CategoryDTO> categoriesDTO = categories.stream()
+				.map(category -> new CategoryDTO(category))
+				.collect(Collectors.toList());
+		
+		return ResponseEntity.ok().body(categoriesDTO); // return "list categories rest service is work";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

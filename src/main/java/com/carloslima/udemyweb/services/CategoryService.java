@@ -28,11 +28,11 @@ public class CategoryService {
 	}
 
 	public List<Category> findAll() {
-		List<Category>categories = categoryRepository.findAll();
+		//List<Category>categories = categoryRepository.findAll();
 		//Optional<Category> categoryObj = categoryRepository.findAll()();
 		//System.out.println(categoryObj);
 		// categoryObj.orElse(null);
-		return categories;
+		return categoryRepository.findAll();//categories;
 //		return categories.orElseThrow(() -> new ObjectNotFoundException(
 //				"Object Not found! Id: " + id + ", Type: " + Category.class.getName()));
 //						

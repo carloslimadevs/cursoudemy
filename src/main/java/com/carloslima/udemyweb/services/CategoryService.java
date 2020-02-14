@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.carloslima.udemyweb.domain.Category;
+import com.carloslima.udemyweb.dto.CategoryDTO;
 import com.carloslima.udemyweb.repositories.CategoryRepository;
 import com.carloslima.udemyweb.services.exception.DataIntegrityException;
 import com.carloslima.udemyweb.services.exception.ObjectNotFoundException;
@@ -66,5 +67,11 @@ public class CategoryService {
 	public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page,linesPerPage,Direction.valueOf(direction), orderBy);
 		return categoryRepository.findAll(pageRequest);
+	}
+	
+	public Category fromDTO(CategoryDTO categoryDTO) {
+		
+		return new Category(categoryDTO.getId(),categoryDTO.getDescription(),categoryDTO.getName());
+		
 	}
 }

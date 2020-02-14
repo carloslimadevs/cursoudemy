@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Category implements Serializable {
 

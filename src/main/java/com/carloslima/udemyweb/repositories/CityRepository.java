@@ -7,5 +7,7 @@ import com.carloslima.udemyweb.domain.City;
 
 @Repository
 public interface CityRepository extends JpaRepository<City, Integer>{
+	
+	
 
 }

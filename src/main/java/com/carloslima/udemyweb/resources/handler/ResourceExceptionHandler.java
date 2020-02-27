@@ -53,9 +53,9 @@ public class ResourceExceptionHandler {
 	
 	
 	public String dateFormatter() {
-		Instant instant = Instant.ofEpochMilli( System.currentTimeMillis());
-		ZonedDateTime zdt = ZonedDateTime.ofInstant( instant , zoneId );
-		return  zdt.format(formatter);
+		//Instant instant = Instant.ofEpochMilli( System.currentTimeMillis());
+		//ZonedDateTime zdt = ZonedDateTime.ofInstant( instant , zoneId );
+		return  ZonedDateTime.ofInstant( Instant.ofEpochMilli( System.currentTimeMillis()), zoneId ).format(formatter);
 
 	}
 }

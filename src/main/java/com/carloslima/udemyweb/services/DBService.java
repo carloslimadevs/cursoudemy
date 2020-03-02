@@ -149,7 +149,7 @@ public class DBService {
 
 		}
 
-		emailservice.sendOrderConfirmationEmail(new Ordered());
+		emailservice.sendOrderConfirmationHtmlEmail(new Ordered());
 	}
 
 

@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 
 import com.carloslima.udemyweb.domain.enums.CustomerType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Customer implements Serializable {
@@ -34,6 +35,8 @@ public class Customer implements Serializable {
 	private String document;
 	private Integer customerType;
 
+	@JsonIgnore
+	private String senha;
 	
 	@OneToMany(mappedBy = "customer")
 	private List<Address> addresses = new ArrayList<Address>();
@@ -122,6 +125,15 @@ public class Customer implements Serializable {
 
 	public void setOrdereds(List<Ordered> ordereds) {
 		this.ordereds = ordereds;
+	}
+
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override

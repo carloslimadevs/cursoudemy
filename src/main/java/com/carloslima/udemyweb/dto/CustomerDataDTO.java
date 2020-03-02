@@ -29,6 +29,8 @@ public class CustomerDataDTO implements Serializable{
 
 	private Integer cityId;
 	
+	private String senha;
+	
 	public CustomerDataDTO() {
 		
 	}
@@ -114,6 +116,14 @@ public class CustomerDataDTO implements Serializable{
 		this.cityId = cityId;
 	}
 	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public  Set<String> phonesToCustomerContacts(){
 		
 		return new HashSet<String>(Arrays.asList(this.phones.split(",")));

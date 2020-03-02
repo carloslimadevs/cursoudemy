@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,12 +16,9 @@ import com.carloslima.udemyweb.domain.Address;
 import com.carloslima.udemyweb.domain.City;
 import com.carloslima.udemyweb.domain.Customer;
 import com.carloslima.udemyweb.domain.enums.CustomerType;
-import com.carloslima.udemyweb.dto.CustomerDTO;
 import com.carloslima.udemyweb.dto.CustomerDataDTO;
 import com.carloslima.udemyweb.repositories.AddressRepository;
-import com.carloslima.udemyweb.repositories.CityRepository;
 import com.carloslima.udemyweb.repositories.CustomerRepository;
-import com.carloslima.udemyweb.resources.utils.URLUtils;
 import com.carloslima.udemyweb.services.exception.DataIntegrityException;
 import com.carloslima.udemyweb.services.exception.ObjectNotFoundException;
 
@@ -30,12 +28,12 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository ;
 	
-	@Autowired
-	private CityRepository cityRepository ;
-	
+
 	@Autowired
 	private AddressRepository addressRepository ;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCrypt;
 	
 	public Customer find(Integer id) {
 		Optional<Customer> customerObj = customerRepository.findById(id);
@@ -94,6 +92,7 @@ public class CustomerService {
 public Customer fromDTO(CustomerDataDTO customerDataDTO) {
 		
 		Customer customer = new Customer();
+		customer.setSenha(bCrypt.encode(customerDataDTO.getSenha()));
 		//customer.setId(customerDataDTO.getId());
 		customer.setEmail(customerDataDTO.getEmail());
 		customer.setName(customerDataDTO.getName());

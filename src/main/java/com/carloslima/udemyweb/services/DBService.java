@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.carloslima.udemyweb.domain.Address;
@@ -55,6 +56,11 @@ public class DBService {
 	@Autowired
 	private EmailService emailservice;
 	
+	
+	@Autowired
+	private BCryptPasswordEncoder bCrypt;
+	
+	
 	public void instatiateTestDataBase() throws ParseException {
 
 		int x = 100;
@@ -100,6 +106,9 @@ public class DBService {
 
 			Customer customerOne = new Customer(null, "customer_one", "customerOne@mail.com", "01010101010", CustomerType.COMMONCOSTUMER);
 			Customer customerTwo = new Customer(null, "customer_Two", "customerTwo@mail.com", "10101010101", CustomerType.LEGALCOSTUMER);
+
+			customerOne.setSenha(bCrypt.encode("123"));
+			customerTwo.setSenha(bCrypt.encode("321"));
 
 			customerOne.getContacts().addAll(Arrays.asList("123456","212221212"));
 

@@ -104,6 +104,20 @@ public class ProductOrdered  implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(getProduct().getName());
+		builder.append("amount: ");
+		builder.append(getNumber());
+		builder.append("Price (un): ");
+		builder.append(getProduct().getPrice());
+
+		return builder.toString();
+	}
+	
+	
 	
 	
 }

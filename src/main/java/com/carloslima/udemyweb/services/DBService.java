@@ -52,9 +52,12 @@ public class DBService {
 	@Autowired
 	private ProductOrderedRepository productOrderedRepository;
 	
+	@Autowired
+	private EmailService emailservice;
+	
 	public void instatiateTestDataBase() throws ParseException {
 
-		int x = 10;
+		int x = 0;
 
 		for(int i = 0; i < x; i++) {
 
@@ -142,10 +145,11 @@ public class DBService {
 			productThree.getProducts().addAll(Arrays.asList(pd2));
 
 			productOrderedRepository.saveAll(Arrays.asList(pd1,pd2,pd3));
-
+			
 
 		}
 
+		emailservice.sendOrderConfirmationEmail(new Ordered());
 	}
 
 

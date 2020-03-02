@@ -9,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.carloslima.udemyweb.services.DBService;
+import com.carloslima.udemyweb.services.EmailService;
+import com.carloslima.udemyweb.services.SmtpEmailService;
 
 @Configuration
 @Profile("dev")
-
 public class AppDevConfig {
+	
 	@Autowired
 	private DBService  dbservice;
 	
@@ -23,10 +25,15 @@ public class AppDevConfig {
 	@Bean
 	public boolean instatiateDatabase() throws ParseException {
 		
-		if (!strategy.equalsIgnoreCase("create")) {
-			return false;
-		}
+//		if (!strategy.equalsIgnoreCase("create")) {
+//			return false;
+//		}
 		dbservice.instatiateTestDataBase();
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 }

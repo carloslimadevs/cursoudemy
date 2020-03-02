@@ -57,7 +57,7 @@ public class DBService {
 	
 	public void instatiateTestDataBase() throws ParseException {
 
-		int x = 0;
+		int x = 100;
 
 		for(int i = 0; i < x; i++) {
 
@@ -149,7 +149,7 @@ public class DBService {
 
 		}
 
-		emailservice.sendOrderConfirmationHtmlEmail(new Ordered());
+		//emailservice.sendOrderConfirmationHtmlEmail(new Ordered());
 	}
 
 

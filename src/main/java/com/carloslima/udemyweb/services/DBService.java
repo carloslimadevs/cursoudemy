@@ -19,6 +19,7 @@ import com.carloslima.udemyweb.domain.PaymentCard;
 import com.carloslima.udemyweb.domain.Product;
 import com.carloslima.udemyweb.domain.ProductOrdered;
 import com.carloslima.udemyweb.domain.Province;
+import com.carloslima.udemyweb.domain.enums.AccessProfileType;
 import com.carloslima.udemyweb.domain.enums.CustomerType;
 import com.carloslima.udemyweb.domain.enums.PaymentStatus;
 import com.carloslima.udemyweb.repositories.AddressRepository;
@@ -63,7 +64,7 @@ public class DBService {
 	
 	public void instatiateTestDataBase() throws ParseException {
 
-		int x = 100;
+		int x = 10;
 
 		for(int i = 0; i < x; i++) {
 
@@ -110,6 +111,8 @@ public class DBService {
 			customerOne.setSenha(bCrypt.encode("123"));
 			customerTwo.setSenha(bCrypt.encode("321"));
 
+			customerTwo.addProfile(AccessProfileType.ADMIN);
+			
 			customerOne.getContacts().addAll(Arrays.asList("123456","212221212"));
 
 			Address addressOne = new Address(null, "Street customer One", "1", "apt 202", "4250281", customerOne, cityOne);

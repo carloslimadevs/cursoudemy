@@ -5,16 +5,19 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.carloslima.udemyweb.domain.enums.AccessProfileType;
 import com.carloslima.udemyweb.domain.enums.CustomerType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -49,8 +52,12 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy = "customer")
 	private List<Ordered> ordereds = new ArrayList<Ordered>();
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PROFILES")
+	private Set<Integer> profiles = new HashSet<Integer>();
 	public Customer() {
 		super();
+		addProfile(AccessProfileType.PUBLIC);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -61,6 +68,8 @@ public class Customer implements Serializable {
 		this.email = email;
 		this.document = document;
 		this.customerType = customerType.getIdentifier();
+		addProfile(AccessProfileType.PUBLIC);
+
 	}
 
 	public Integer getId() {
@@ -136,6 +145,18 @@ public class Customer implements Serializable {
 		this.senha = senha;
 	}
 
+	public Set<AccessProfileType> getProfiles(){
+		
+		return profiles.stream().map(x -> AccessProfileType.toEnum(x)).collect(Collectors.toSet());
+		
+	}
+	
+	public void addProfile(AccessProfileType profile){
+		
+		this.profiles.add(profile.getIdentifier());
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

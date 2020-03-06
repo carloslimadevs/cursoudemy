@@ -15,10 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.carloslima.udemyweb.domain.Address;
 import com.carloslima.udemyweb.domain.City;
 import com.carloslima.udemyweb.domain.Customer;
+import com.carloslima.udemyweb.domain.enums.AccessProfileType;
 import com.carloslima.udemyweb.domain.enums.CustomerType;
 import com.carloslima.udemyweb.dto.CustomerDataDTO;
 import com.carloslima.udemyweb.repositories.AddressRepository;
 import com.carloslima.udemyweb.repositories.CustomerRepository;
+import com.carloslima.udemyweb.security.UserSpringSecurity;
+import com.carloslima.udemyweb.services.exception.AuthorizationException;
 import com.carloslima.udemyweb.services.exception.DataIntegrityException;
 import com.carloslima.udemyweb.services.exception.ObjectNotFoundException;
 
@@ -36,6 +39,13 @@ public class CustomerService {
 	private BCryptPasswordEncoder bCrypt;
 	
 	public Customer find(Integer id) {
+		UserSpringSecurity user = UserService.authenticated();
+		
+		if(user == null || !user.hasRole(AccessProfileType.ADMIN)) {
+			throw new AuthorizationException("Denied Access");
+		}
+			
+			
 		Optional<Customer> customerObj = customerRepository.findById(id);
 		System.out.println(customerObj);
 		// customerObj.orElse(null);

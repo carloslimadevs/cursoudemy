@@ -13,6 +13,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 //	Customer findByEmail(String email);
 
 	@Transactional(readOnly = true)
-	Boolean findByEmail(String email);
+	Customer findByEmail(String email);
 }
 
